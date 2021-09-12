@@ -37,10 +37,18 @@ extern CAppModule _Module;
 #include <boost/filesystem.hpp>
 #include <boost/bimap.hpp>
 
-#include <Xenoide/Core/FileService.hpp>
-
-
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+
+class FileService {
+public:
+    std::string load(const std::string& filePath) const {
+        return "";
+    }
+
+    void save(const std::string& filePath, const std::string& content) {
+
+    }
+};
 
 class AppController {
 public:
@@ -793,9 +801,10 @@ public:
 
         if (nID == ID_FILE_SAVE) {
             if (mFilePath) {
-                const auto fileService = Xenoide::FileService::create();
-                const auto content = mCodeView.GetContent();
-                fileService->save(mFilePath.value(), content);
+                FileService fileService;
+                const std::string content = mCodeView.GetContent();
+
+                fileService.save(mFilePath.value().string(), content);
 
                 mCodeView.ClearSaveState();
             } else {
@@ -828,8 +837,8 @@ private:
         mFilePath = filePath;
 
         // load the file and put the content into the 
-        const auto fileService = Xenoide::FileService::create();
-        const auto fileContent = fileService->load(*mFilePath);
+        const FileService fileService;
+        const std::string fileContent = fileService.load(mFilePath->string());
 
         mCodeView.SetInitialContent(fileContent.c_str());
 

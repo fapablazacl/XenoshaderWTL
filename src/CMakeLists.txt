@@ -21,12 +21,12 @@ if (NOT EXISTS ${XENOIDE_LEXILLA_INCLUDE_DIR})
 endif ()
 
 
-set (target XenoShader.Wtl)
+set (target XenoshaderWTL)
 
 set (sources
-	"src/LexillaAccess.h"
-	"src/LexillaAccess.cxx"
-	"src/XenoShader.cpp"
+	"LexillaAccess.h"
+	"LexillaAccess.cxx"
+	"XenoShader.cpp"
 	"res/Resource.rc"
 	"res/resource.h"
 )
@@ -45,5 +45,4 @@ target_include_directories (${target} PRIVATE
 
 # target_include_directories (${target} PUBLIC ${XENOIDE_WTL_INCLUDE_DIR})
 # target_include_directories (${target} PRIVATE ${XENOIDE_SCINTILLA_INCLUDE_DIR})
-
-target_link_libraries (${target} Xenoide.Core Xenoide.Gui)
+# target_link_libraries (${target} Xenoide.Core Xenoide.Gui)
